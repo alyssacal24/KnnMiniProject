@@ -1,2 +1,2 @@
 #Knn Generator
-link:
+link: https://alyssacal24.github.io/KnnMiniProject/
