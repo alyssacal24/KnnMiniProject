@@ -108,8 +108,9 @@
                     pd_imgs_np_train = pd.read_csv(open_url(url3))
                     pd_imgs_np_train_np = pd_imgs_np_train.to_numpy()
                     pd_imgs_np_train_np      = pd_imgs_np_train_np[1:, 1:]
+                     ######################################################
+                    array2 = np.reshape(array2, (14, 4))
 
-            
                     ######################################################
                     def euclidean_distance(v1, v2):
                         return np.sqrt(np.sum((v1 - v2)**2))
