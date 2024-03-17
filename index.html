@@ -57,6 +57,14 @@
     </py-config>
 
     <script type="py">
+        import matplotlib.pyplot as plt
+        import matplotlib.tri as tri
+        import numpy as np
+        import pandas as pd
+        from pyodide.http import open_url
+        from js import console
+        from mpl_toolkits.axes_grid1 import make_axes_locatable
+        
         def my_gen_function():
             test_x = get_np_conditions_vector()
 
@@ -83,13 +91,6 @@
     </script>
 
     <script type="py">
-        import matplotlib.pyplot as plt
-        import matplotlib.tri as tri
-        import numpy as np
-        import pandas as pd
-        from pyodide.http import open_url
-        from js import console
-        from mpl_toolkits.axes_grid1 import make_axes_locatable
 
         url1 = ("https://alyssacal24.github.io/KnnMiniProject/PD_conditions_train.csv")
         pd_ids_train = pd.read_csv(open_url(url1))
