@@ -47,6 +47,18 @@
     <td><input type="range" min="0" max="100" value="0" style="border:3px solid #F7730E;" id="testInput4"/></td>
   </tr>
 </table>
+                 def my_gen_function():
+                    
+                test_x = get_np_conditions_vector()
+
+         #####################################################
+         text1 = str(pd_conditions_train_np.shape)
+         text2 = str(pd_ids_train_np.shape)
+         text3 = str(pd_imgs_np_train_np.shape)
+         text4 = str(test_x.shape)
+         text = text1 + text2 + text3 + text4
+         Element('test-output').element.innerText =  text   
+        
 
        
          <button id="get-time" py-click="my_gen_function()"  class="py-button">Generate</button>
@@ -138,15 +150,7 @@
                 np_conditions_list = np.tile(np_conditions_list, (15, 1))  # Repeat the list 15 times
                 
                 return np_conditions_list
-            
-            ##################################################
-            def my_gen_function():
-                test_x = get_np_conditions_vector()
-                
-                text = f"Conditions Train Shape: {pd_conditions_train.shape}\n"
-                text += f"Images Train Shape: {pd_imgs_np_train.shape}\n"
-                text += f"Test Input Shape: {test_x.shape}"
-                Element('test-output').element.innerText = text    
+
                 #####################################################
                 
                 generated_img = predict( test_x )
