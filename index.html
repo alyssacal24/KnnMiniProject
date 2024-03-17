@@ -127,7 +127,7 @@
                         return avg_gen_img
 
                     ##################################################
-                     def get_np_conditions_vector():
+                def get_np_conditions_vector():
                         c1 = float(Element('testInput1').element.value)
                         c2 = float(Element('testInput2').element.value)
                         c3 = float(Element('testInput3').element.value)
@@ -142,7 +142,7 @@
 
 
                     ##################################################
-                    def my_gen_function():
+                def my_gen_function():
                         test_x = get_np_conditions_vector()
                         
                         text = f"Conditions Train Shape: {pd_conditions_train.shape}\n"
