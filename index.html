@@ -64,33 +64,6 @@
         from pyodide.http import open_url
         from js import console
         from mpl_toolkits.axes_grid1 import make_axes_locatable
-        
-        def my_gen_function():
-            test_x = get_np_conditions_vector()
-
-            #####################################################
-            text1 = str(pd_conditions_train_np.shape)
-            text2 = str(pd_ids_train_np.shape)
-            text3 = str(pd_imgs_np_train_np.shape)
-            text4 = str(test_x.shape)
-            text = text1 + text2 + text3 + text4
-            Element('test-output').element.innerText = text
-            #####################################################
-
-        def get_np_conditions_vector():
-            c1 = float(Element('testInput1').element.value)
-            c2 = float(Element('testInput2').element.value)
-            c3 = float(Element('testInput3').element.value)
-            c4 = float(Element('testInput4').element.value)
-
-            conditions_list = [c1, c2, c3, c4]
-            np_conditions_list = np.array(conditions_list)
-            np_conditions_list = np.tile(np_conditions_list, (15, 1))  # Repeat the list 15 times
-
-            return np_conditions_list
-    </script>
-
-    <script type="py">
 
         url1 = ("https://alyssacal24.github.io/KnnMiniProject/PD_conditions_train.csv")
         pd_ids_train = pd.read_csv(open_url(url1))
@@ -119,56 +92,86 @@
             avg_gen_img = np.mean(selected_imgs_to_avg, axis=0)
             avg_gen_img = avg_gen_img.astype(int)
             return avg_gen_img
-            
-            ###################################################
-            def get_np_conditions_vector():
-                c1 = float(Element('testInput1').element.value)
-                c2 = float(Element('testInput2').element.value)
-                c3 = float(Element('testInput3').element.value)
-                c4 = float(Element('testInput4').element.value)
-                                    
-                conditions_list = [c1, c2, c3, c4]
-                np_conditions_list = np.array(conditions_list)
-                np_conditions_list = np.tile(np_conditions_list, (15, 1))  # Repeat the list 15 times
-                
-                return np_conditions_list
 
-                #####################################################
-                
-            generated_img = predict( test_x )
-                
-                #####################################################          
-                str_conditions = np.array2string(test_x, precision=0, separator=',', suppress_small=True)
-                str_conditions = str_conditions.replace(" ","")
-                str_conditions = str_conditions.replace("[","")
-                str_conditions = str_conditions.replace("]","")
-                #####################################################
-            
-                fig1, ax1 = plt.subplots()
-                plt.imshow(generated_img)
-                plt.colorbar(label="Colorbar", orientation="vertical")
-                ax1.set_title(str_conditions)
-            
-                display(fig1, target="mpl")
-            
-                Element('mpl').element.innerText = ""        ## use this to not accumulate imgs
-                display(fig1, target="mpl")
-            
-                #####################################################
-            
-                fig, ax = plt.subplots(1,2)
-                ax[0].imshow(generated_img)
-                ax[1].imshow(generated_img)
-                ax[0].set_title("Gen: " + str_conditions)
-                ax[1].set_title("real")
-                Element('mpl').element.innerText = ""        ## use this to not accumulate imgs
-                display(fig, target="mpl")
-            
-            </script>
-         
-        </section>
+        def my_gen_function():
+            test_x = get_np_conditions_vector()
 
+            #####################################################
+            text1 = str(pd_conditions_train_np.shape)
+            text2 = str(pd_ids_train_np.shape)
+            text3 = str(pd_imgs_np_train_np.shape)
+            text4 = str(test_x.shape)
+            text = text1 + text2 + text3 + text4
+            Element('test-output').element.innerText = text
+            #####################################################
 
+        def get_np_conditions_vector():
+            c1 = float(Element('testInput1').element.value)
+            c2 = float(Element('testInput2').element.value)
+            c3 = float(Element('testInput3').element.value)
+            c4 = float(Element('testInput4').element.value)
+
+            conditions_list = [c1, c2, c3, c4]
+            np_conditions_list = np.array(conditions_list)
+            np_conditions_list = np.tile(np_conditions_list, (15, 1))  # Repeat the list 15 times
+
+            return np_conditions_list
+
+    </script>
+
+    <script type="py">
+        import numpy as np
+        import matplotlib.pyplot as plt
+        import matplotlib.tri as tri
+        import pandas as pd
+        from pyodide.http import open_url
+        from js import console
+        from mpl_toolkits.axes_grid1 import make_axes_locatable
         
-    </body>
+        ###################################################
+        def get_np_conditions_vector():
+            c1 = float(Element('testInput1').element.value)
+            c2 = float(Element('testInput2').element.value)
+            c3 = float(Element('testInput3').element.value)
+            c4 = float(Element('testInput4').element.value)
+                                    
+            conditions_list = [c1, c2, c3, c4]
+            np_conditions_list = np.array(conditions_list)
+            np_conditions_list = np.tile(np_conditions_list, (15, 1))  # Repeat the list 15 times
+                
+            return np_conditions_list
+
+        generated_img = predict( test_x )
+                
+        str_conditions = np.array2string(test_x, precision=0, separator=',', suppress_small=True)
+        str_conditions = str_conditions.replace(" ","")
+        str_conditions = str_conditions.replace("[","")
+        str_conditions = str_conditions.replace("]","")
+        #####################################################
+            
+        fig1, ax1 = plt.subplots()
+        plt.imshow(generated_img)
+        plt.colorbar(label="Colorbar", orientation="vertical")
+        ax1.set_title(str_conditions)
+            
+        display(fig1, target="mpl")
+            
+        Element('mpl').element.innerText = ""        ## use this to not accumulate imgs
+        display(fig1, target="mpl")
+            
+        #####################################################
+            
+        fig, ax = plt.subplots(1,2)
+        ax[0].imshow(generated_img)
+        ax[1].imshow(generated_img)
+        ax[0].set_title("Gen: " + str_conditions)
+        ax[1].set_title("real")
+        Element('mpl').element.innerText = ""        ## use this to not accumulate imgs
+        display(fig, target="mpl")
+
+    </script>
+         
+</section>
+
+</body>
 </html>
