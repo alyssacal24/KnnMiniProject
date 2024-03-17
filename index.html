@@ -121,14 +121,19 @@
 
                     def predict(test_x):
                     
-                        distances = [euclidean_distance(np.tile(test_x, (1, 1))[0], x) for x in pd_conditions_train_np  ]
+                        distances = [ euclidean_distance(test_x, x )  for x in pd_conditions_train_np  ]  
+                            
                         k = 3
+                        
                         k_neighbor_indices = np.argsort(distances)[:k]
+
                         selected_imgs_to_avg = [ pd_imgs_np_train_np[i].reshape((140, 39))  for i in k_neighbor_indices  ]
-                    
+
                         avg_gen_img = np.mean( np.array(selected_imgs_to_avg), axis=0 )
+                    
                         avg_gen_img = avg_gen_img.astype(int)
                         return avg_gen_img
+
 
                     ##################################################
 
@@ -170,13 +175,13 @@
                         str_conditions = str_conditions.replace("]","")
                         #####################################################
 
-                        fig1, ax1 = plt.subplots()
-                        plt.imshow(generated_img)                                     ##, cmap='summer')
-                        plt.colorbar(label="Colorbar", orientation="vertical")
-                        ax1.set_title(str_conditions)
+                        ##fig1, ax1 = plt.subplots()
+                        ##plt.imshow(generated_img)                                     ##, cmap='summer')
+                        ##plt.colorbar(label="Colorbar", orientation="vertical")
+                        ##ax1.set_title(str_conditions)
 
-                        Element('mpl').element.innerText = ""        ## use this to not accumulate imgs
-                        display(fig1, target="mpl")
+                        ##Element('mpl').element.innerText = ""        ## use this to not accumulate imgs
+                        ##display(fig1, target="mpl")
                     
                         #####################################################
 
