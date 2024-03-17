@@ -127,20 +127,15 @@
                         return avg_gen_img
 
                     ##################################################
-                    def get_np_conditions_vector():
+                     def get_np_conditions_vector():
                         c1 = float(Element('testInput1').element.value)
                         c2 = float(Element('testInput2').element.value)
                         c3 = float(Element('testInput3').element.value)
                         c4 = float(Element('testInput4').element.value)
-                        
-                        return np.array([[c1, c2, c3, c4]])
-                    
+                                            
                         conditions_list = [c1, c2, c3, c4]
                         np_conditions_list = np.array(conditions_list)
-                        np_conditions_list = np.expand_dims(np_conditions_list, axis=0)
-                        
-                        # Reshape to match the shape of pd_conditions_train_np
-                        np_conditions_list = np.tile(np_conditions_list, (pd_conditions_train_np.shape[0], 1))
+                        np_conditions_list = np.tile(np_conditions_list, (15, 1))  # Repeat the list 15 times
                         
                         return np_conditions_list
 
