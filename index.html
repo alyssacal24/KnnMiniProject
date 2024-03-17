@@ -117,22 +117,23 @@
                     ######################################################
 
                     def predict(test_x):
-                        distances = [euclidean_distance(test_x, x) for x in pd_conditions_train_np]
+                        distances = euclidean_distance(test_x, pd_conditions_train)
                         k = 3
                         k_neighbor_indices = np.argsort(distances)[:k]
-                        selected_imgs_to_avg = [pd_imgs_np_train_np[i].reshape((140, 39)) for i in k_neighbor_indices]
-        
-                        avg_gen_img = np.mean(np.array(selected_imgs_to_avg), axis=0)
+                        selected_imgs_to_avg = pd_imgs_np_train[k_neighbor_indices]
+                        
+                        avg_gen_img = np.mean(selected_imgs_to_avg, axis=0)
                         avg_gen_img = avg_gen_img.astype(int)
                         return avg_gen_img
 
                     ##################################################
-
                     def get_np_conditions_vector():
                         c1 = float(Element('testInput1').element.value)
                         c2 = float(Element('testInput2').element.value)
                         c3 = float(Element('testInput3').element.value)
                         c4 = float(Element('testInput4').element.value)
+                        
+                        return np.array([[c1, c2, c3, c4]])
                     
                         conditions_list = [c1, c2, c3, c4]
                         np_conditions_list = np.array(conditions_list)
@@ -147,21 +148,17 @@
 
                     ##################################################
                     def my_gen_function():
-                    
                         test_x = get_np_conditions_vector()
-
-                        text1 = str(pd_conditions_train_np.shape)
-                        text2 = str(pd_ids_train_np.shape)
-                        text3 = str(pd_imgs_np_train_np.shape)
-                        text4 = str(test_x.shape)
-                        text = text1 + text2 + text3 + text4
-                        Element('test-output').element.innerText =  text   
+                        
+                        text = f"Conditions Train Shape: {pd_conditions_train.shape}\n"
+                        text += f"Images Train Shape: {pd_imgs_np_train.shape}\n"
+                        text += f"Test Input Shape: {test_x.shape}"
+                        Element('test-output').element.innerText = text    
                         #####################################################
                         
                         generated_img = predict( test_x )
                     
                         #####################################################          
-                        test_x = test_x.astype(int)
                         str_conditions = np.array2string(test_x, precision=0, separator=',', suppress_small=True)
                         str_conditions = str_conditions.replace(" ","")
                         str_conditions = str_conditions.replace("[","")
@@ -169,9 +166,11 @@
                         #####################################################
 
                         fig1, ax1 = plt.subplots()
-                        plt.imshow(generated_img)                                     ##, cmap='summer')
+                        plt.imshow(generated_img)
                         plt.colorbar(label="Colorbar", orientation="vertical")
                         ax1.set_title(str_conditions)
+        
+                        display(fig1, target="mpl")
 
                         ## Element('mpl').element.innerText = ""        ## use this to not accumulate imgs
                         display(fig1, target="mpl")
