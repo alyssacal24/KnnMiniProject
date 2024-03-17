@@ -143,8 +143,8 @@
                         c3 = float(Element('testInput3').element.value)
                         c4 = float(Element('testInput4').element.value)
                     
-                        # Combine the input conditions into a single numpy array
-                        np_conditions_list = np.array([c1, c2, c3, c4])
+                        # Reshape the input conditions into the shape (1, 4)
+                        np_conditions_list = np.array([c1, c2, c3, c4]).reshape(1, -1)
                     
                         return np_conditions_list
 
