@@ -114,8 +114,7 @@
                     ######################################################
 
                     def euclidean_distance(v1, v2):
-                        v2_broadcasted = np.broadcast_to(v2, v1.shape)  # Broadcast v2 to match the shape of v1
-                        return np.sqrt(np.sum((v1 - v2_broadcasted)**2, axis=1))
+                        return np.sqrt( np.sum(   (v1 - v2)**2   )   )
 
 
               
