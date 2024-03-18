@@ -112,10 +112,9 @@
 
             
                     ######################################################
-
+                    
                     def euclidean_distance(v1, v2):
-                        v2_reshaped = np.tile(v2, (v1.shape[0], 1))  # Repeat v2 to match the shape of v1
-                        return np.sqrt(np.sum((v1 - v2_reshaped)**2, axis=1))
+                        return np.sqrt( np.sum(   (v1 - v2)**2   )   )
 
 
               
@@ -177,7 +176,7 @@
                         plt.colorbar(label="Colorbar", orientation="vertical")
                         ax1.set_title(str_conditions)
 
-                        Element('mpl').element.innerText = ""        ## use this to not accumulate imgs
+                        ## Element('mpl').element.innerText = ""        ## use this to not accumulate imgs
                         display(fig1, target="mpl")
                     
                         #####################################################
